@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # setup:
 # pip3 install --break-system-packages tkdial customtkinter python-osc pillow tk
 
