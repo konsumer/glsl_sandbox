@@ -7,9 +7,12 @@
 from pythonosc.udp_client import SimpleUDPClient
 import customtkinter
 from tkdial import Dial
+import sys
 
-
-client = SimpleUDPClient("127.0.0.1", 8000) 
+try:
+  client = SimpleUDPClient("127.0.0.1", sys.argv[1]) 
+except IndexError:
+  client = SimpleUDPClient("127.0.0.1", 8000) 
 
 customtkinter.set_appearance_mode("Dark") 
 app = customtkinter.CTk()
@@ -33,7 +36,6 @@ def readvals():
     if v != values[i]:
       values[i] = v
       client.send_message(f"/u_x{i}", [v/100.0])
-
   app.after(1, readvals)
 
 readvals()
