@@ -10,7 +10,7 @@ from tkdial import Dial
 import sys
 
 try:
-  client = SimpleUDPClient("127.0.0.1", sys.argv[1]) 
+  client = SimpleUDPClient("127.0.0.1", int(sys.argv[1])) 
 except IndexError:
   client = SimpleUDPClient("127.0.0.1", 8000) 
 
