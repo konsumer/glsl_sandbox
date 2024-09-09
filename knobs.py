@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
+# simple knobs that send float messages (0-1) to OSC (for u_x0 - u_x3 in glxViewer)
+
 # setup:
 # pip3 install --break-system-packages tkdial customtkinter python-osc pillow tk
 
 # run:
-# python3 emulator.py
+# python3 knobs.py
 
 from pythonosc.udp_client import SimpleUDPClient
 import customtkinter
