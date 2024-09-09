@@ -31,7 +31,7 @@ void main() {
     float r = dot(pos,pos)*4.;
 
     st *= 2.;
-	float pattern = sin(fract(r+t)*3.1415);
+	float pattern = sin(fract(r+t)*6.1415);
 	pattern = mix(stripes(st,-0.786375),stripes(st,0.786375),pattern);
 
 	gl_FragColor = vec4( vec3(smoothstep(.4,.5,pattern)), 1.0 ) * texture2D(u_tex0, gl_FragCoord.xy/u_resolution.xy);
