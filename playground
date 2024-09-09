@@ -1,4 +1,8 @@
 #!/bin/sh
 
 python3 knobs.py &
+KNOB_PID=$!
+
 glslViewer -p 8000 $*
+
+kill -9 $KNOB_PID

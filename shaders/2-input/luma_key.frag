@@ -32,40 +32,43 @@ vec3 hsv2rgb(vec3 c)
     return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
 }
 
-vec4 mixLuma0(vec4 texColour0, vec4 texColour1) {
-    vec4 colour;    
-    vec3 hsvTexColour0 = rgb2hsv(texColour0.rgb);
+vec4 mixLuma0(vec4 texcolor0, vec4 texcolor1) {
+    vec4 color;    
+    vec3 hsvTexcolor0 = rgb2hsv(texcolor0.rgb);
 
-    if(hsvTexColour0.z < u_x0){colour = texColour0;}
-    else {colour = texColour1;}
-    return colour;
+    if(hsvTexcolor0.z < u_x0){color = texcolor0;}
+    else {color = texcolor1;}
+    return color;
 }
 
-vec4 mixLuma1(vec4 texColour0, vec4 texColour1) {
-    vec4 colour;    
-    vec3 hsvTexColour1 = rgb2hsv(texColour1.rgb);
+vec4 mixLuma1(vec4 texcolor0, vec4 texcolor1) {
+    vec4 color;    
+    vec3 hsvTexcolor1 = rgb2hsv(texcolor1.rgb);
 
-    if(hsvTexColour1.z < u_x0){colour = texColour1;}
-    else {colour = texColour0;}
-    return colour;
+    if(hsvTexcolor1.z < u_x0){color = texcolor1;}
+    else {color = texcolor0;}
+    return color;
 }
 
 
 void main() {
 
     vec2 pos = v_texcoord;
-    vec4 texColour0;
-    vec4 texColour1;
+    vec4 texcolor0;
+    vec4 texcolor1;
 
-    texColour0 = texture2D(u_tex0, v_texcoord);
-    texColour1 = texture2D(u_tex1, v_texcoord);
+    texcolor0 = texture2D(u_tex0, v_texcoord);
+    texcolor1 = texture2D(u_tex1, v_texcoord);
 
 
-    vec4 colour;
+    vec4 color;
 
-    if(u_x1 > 0.5){colour = mixLuma0(texColour0, texColour1);}
-    else{colour = mixLuma1(texColour0, texColour1);}
+    if(u_x1 > 0.5){
+        color = mixLuma0(texcolor0, texcolor1);
+    } else{
+        color = mixLuma1(texcolor0, texcolor1);
+    }
 
-    gl_FragColor = colour; 
+    gl_FragColor = color; 
 
 }

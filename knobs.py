@@ -13,7 +13,7 @@ from tkdial import Dial
 customtkinter.set_appearance_mode("Dark")
 
 app = customtkinter.CTk()
-app.title("K̴̛̘̊͒̽̊̐̊̇͝ǹ̷̢̤̠̗̤͊ö̷̢̢̢̱͙̖̗̲̲́̑̽̈́̕͘b̴̠̗͇̳̩̐̎̋̈́̉̈́͑͒͝ͅṣ̶̞̮͒͌̅")
+app.title("knobs")
 
 client = SimpleUDPClient("127.0.0.1", 8000)
 
