@@ -1,53 +1,26 @@
-//2-input
+// 2-input
 
-#ifdef GL_ES
-precision mediump float;
-#endif
-
-varying vec2 v_texcoord;
-uniform sampler2D u_tex0;
-uniform sampler2D u_tex1;
 uniform vec2 u_resolution;
+uniform sampler2D   u_tex0;
+uniform sampler2D   u_tex1;
 
-uniform float u_x0;
-uniform float u_x1;
-uniform float u_x2;
+// port of https://www.shadertoy.com/view/Mdj3Wy
+const int samples = 10;
+const float desplillValue = 0.1;
 
-
-
-void main(){
-  vec4 color0 = texture2D(u_tex0, v_texcoord);
-  vec4 color1 = texture2D(u_tex1, v_texcoord);
-
-  // bad green-screen
-  gl_FragColor = color0.g > 0.4 && color0.r < 0.5 && color0.b < 0.5 ? color1 : color0;
+void main() {  
+  float rad = 0.02;
+  vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+  vec4 fg = texture2D(u_tex0, uv);
+  vec4 bg = texture2D(u_tex1, uv);
+  vec3 blurredImage = vec3(0.0);
+  for (int i = -samples; i < samples; i++) {
+    for (int j = -samples; j < samples; j++) {
+      blurredImage += texture2D(u_tex0, uv + vec2(i, j) * (rad/float(samples))).xyz / pow(float(samples) * 2.0, 2.0);
+    }
+  }
+  vec4 rawKey = vec4 (vec3(blurredImage[1]-blurredImage[0]),1.0);
+  vec4 normalizeKey = clamp((1.0-(rawKey*10.0)),0.0,1.0);
+  fg.g = clamp (fg.g, 0.0, fg.r-desplillValue);
+  gl_FragColor = (normalizeKey * fg)+((1.0-normalizeKey) * bg);
 }
-
-/*
-// this should be better, but does a blacked-out look
-vec2 RGBtoUV(vec3 rgb) {
-  return vec2(
-    rgb.r * -0.169 + rgb.g * -0.331 + rgb.b *  0.5    + 0.5,
-    rgb.r *  0.5   + rgb.g * -0.419 + rgb.b * -0.081  + 0.5
-  );
-}
-
-void main() {
-  vec2 texCoord = gl_FragCoord.xy / u_resolution;
-
-  vec4 rgba = texture(u_tex0, texCoord);
-  float chromaDist = distance(RGBtoUV(texture(u_tex0, texCoord).rgb), RGBtoUV(vec3(0.0, 1.0, 0.0)));
-
-  // For similarity
-  float baseMask = chromaDist - 0.46;
-
-  // For smoothness
-  rgba.a = pow(clamp(baseMask / 0.08, 0., 1.), 1.5);
-
-  // For spill
-  float spillVal = pow(clamp(baseMask / 0.1, 0., 1.), 1.5);
-  float desat = clamp(rgba.r * 0.2126 + rgba.g * 0.7152 + rgba.b * 0.0722, 0., 1.);
-  rgba.rgb = mix(vec3(desat, desat, desat), rgba.rgb, spillVal);
-  gl_FragColor = rgba;
-}
-*/
