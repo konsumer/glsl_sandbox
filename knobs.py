@@ -9,16 +9,13 @@
 from pythonosc.udp_client import SimpleUDPClient
 import customtkinter
 from tkdial import Dial
-import sys
 
-try:
-  client = SimpleUDPClient("127.0.0.1", int(sys.argv[1])) 
-except IndexError:
-  client = SimpleUDPClient("127.0.0.1", 8000) 
+customtkinter.set_appearance_mode("Dark")
 
-customtkinter.set_appearance_mode("Dark") 
 app = customtkinter.CTk()
 app.title("K̴̛̘̊͒̽̊̐̊̇͝ǹ̷̢̤̠̗̤͊ö̷̢̢̢̱͙̖̗̲̲́̑̽̈́̕͘b̴̠̗͇̳̩̐̎̋̈́̉̈́͑͒͝ͅṣ̶̞̮͒͌̅")
+
+client = SimpleUDPClient("127.0.0.1", 8000)
 
 dials = [
   Dial(app, radius=40, text_color="white", text="0:", color_gradient=("blue", "red")),
@@ -38,7 +35,7 @@ def readvals():
     if v != values[i]:
       values[i] = v
       client.send_message(f"/u_x{i}", [v/100.0])
-  app.after(1, readvals)
+  app.after(5, readvals)
 
 readvals()
 app.mainloop()

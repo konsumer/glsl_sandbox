@@ -1,0 +1,4 @@
+#!/bin/sh
+
+python3 knobs.py &
+glslViewer -p 8000 $*
