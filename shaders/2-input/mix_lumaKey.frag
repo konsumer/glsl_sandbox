@@ -1,6 +1,5 @@
 // TODO: clean this up
 
-
 varying vec2 tcoord;       //
 uniform sampler2D tex;     // texture one
 uniform sampler2D tex2;    // texture two
@@ -37,33 +36,23 @@ vec3 hsv2rgb(vec3 c) {
   return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
 }
 
-
-
 void main() {
+  vec3 outc;
+  vec4 base  = texture2D(tex, tcoord.xy);
+  vec4 blend = texture2D(tex2, tcoord.xy);
 
-   vec3 outc;
-   vec4 base  = texture2D(tex, tcoord.xy);
-   vec4 blend = texture2D(tex2, tcoord.xy);
+  vec3 hsv = rgb2hsv(base.rgb);
 
-   vec3 hsv = rgb2hsv(base.rgb);
-
-   if( (hsv.z > (f0-f1)) && (hsv.z < (f0+f1)) ){
-      if(hsv.z-(f0-f1) < f2){
-         outc = mix(base.rgb,blend.rgb,(hsv.z-(f0-f1))/f2);
-      } else if((f0+f1)-hsv.z < f2){
-         outc = mix(base.rgb,blend.rgb,((f0+f1)-hsv.z)/f2);
-      } else {
-         outc = blend.rgb;
-      }
-
-
-   } else {
-      outc = base.rgb;
-   }
-
-
-
-
-   gl_FragColor=vec4(outc,1.0);
-
+  if( (hsv.z > (f0-f1)) && (hsv.z < (f0+f1)) ){
+    if(hsv.z-(f0-f1) < f2){
+      outc = mix(base.rgb,blend.rgb,(hsv.z-(f0-f1))/f2);
+    } else if((f0+f1)-hsv.z < f2){
+      outc = mix(base.rgb,blend.rgb,((f0+f1)-hsv.z)/f2);
+    } else {
+      outc = blend.rgb;
+    }
+  } else {
+    outc = base.rgb;
+  }
+  gl_FragColor=vec4(outc,1.0);
 }
