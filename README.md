@@ -1,3 +1,7 @@
+This is a set of knobs for glslviewer, to simulate for [recur](https://github.com/cyberboy666/r_e_c_u_r). If you want a 0-install web-based playground, check out [recurweb](https://konsumer.js.org/recurweb)
+
+[Screencast from 09-11-2024 08:27:31 PM.webm](https://github.com/user-attachments/assets/0c6e2b5f-2ee5-4928-8d0c-4cb6dcd1d855)
+
 ## setup
 
 You will need python3 & [glslviewer](https://github.com/patriciogonzalezvivo/glslViewer/releases) installed. I also needed to do this on linux:
