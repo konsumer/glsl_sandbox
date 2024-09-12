@@ -4,8 +4,7 @@
 precision mediump float;
 #endif
 
-#define PI 3.1415926538979323846
-#define TWO_PI 2*PI
+#define TWO_PI 6.283185307795865
 
 varying vec2 v_texcoord;
 uniform sampler2D u_tex0;
