@@ -28,13 +28,13 @@ uniform float u_x2;
 uniform float u_x3;
 
 void main() {
-	// get current pixel-position (scaled to screen)
-	vec2 st = gl_FragCoord.xy / u_resolution;
+  // get current pixel-position (scaled to screen)
+  vec2 st = gl_FragCoord.xy / u_resolution;
 
-	// breathing pulse, 0.0 - 1.0
-	float t = abs(sin(u_time));
-	gl_FragColor = vec4(t * u_x0, t * u_x1, t * u_x2, 1.0);
+  // breathing pulse, 0.0 - 1.0
+  float t = abs(sin(u_time));
+  gl_FragColor = vec4(t * u_x0, t * u_x1, t * u_x2, 1.0);
 
-	// you can read texture like this
-	// gl_FragColor = texture2D(u_tex0, st);
+  // you can read texture like this
+  // gl_FragColor = texture2D(u_tex0, st);
 }
