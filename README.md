@@ -1,5 +1,3 @@
-https://github.com/user-attachments/assets/57cbcfd0-749f-4656-b19f-32c5ba13e649
-
 ## setup
 
 You will need python3 & [glslviewer](https://github.com/patriciogonzalezvivo/glslViewer/releases) installed. I also needed to do this on linux:
