@@ -1,10 +1,12 @@
+// Author: @mrdoob
+// Title: Flowing Colors
+// Textures: 0
+
 // copied from http://glslsandbox.com/e#47821.0
-//0-input
+
 #ifdef GL_ES
 precision mediump float;
 #endif
-
-#extension GL_OES_standard_derivatives : enable
 
 uniform float u_time;
 uniform float u_x0;

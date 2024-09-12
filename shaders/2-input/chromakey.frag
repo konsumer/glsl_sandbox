@@ -1,10 +1,17 @@
-// 2-input
+// Author: CoyHot 
+// Title: Chroma Key
+// Textures: 2
+
+// port of https://www.shadertoy.com/view/Mdj3Wy
+
+#ifdef GL_ES
+precision mediump float;
+#endif
 
 uniform vec2 u_resolution;
 uniform sampler2D   u_tex0;
 uniform sampler2D   u_tex1;
 
-// port of https://www.shadertoy.com/view/Mdj3Wy
 const int samples = 10;
 const float desplillValue = 0.1;
 

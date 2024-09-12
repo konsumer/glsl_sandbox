@@ -1,5 +1,7 @@
-//0-input
-//written by Ben Caldwell
+// Author: Ben Caldwell
+// Title: Square Waves
+// Textures: 0
+
 #ifdef GL_ES
 precision mediump float;
 #endif

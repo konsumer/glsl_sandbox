@@ -1,5 +1,7 @@
-//0-input
-//written by Ben Caldwell
+// Author: Ben Caldwell
+// Title: Hypnotic Rings
+// Textures: 0
+
 #ifdef GL_ES
 precision mediump float;
 #endif

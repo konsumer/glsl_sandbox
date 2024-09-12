@@ -1,3 +1,7 @@
+// Author: caiwan
+// Title: LSD
+// Textures: 0
+
 // based on https://www.shadertoy.com/view/ldBSRd
 
 #define PI 3.14159
@@ -5,11 +9,8 @@
 // surface resolution, same as iResolution on shadertoy
 uniform vec2 u_resolution;
 
-
 // current time since start, same as iTime on shadertoy
 uniform float u_time;
-
-
 
 vec2 random2(vec2 c) { float j = 4906.0*sin(dot(c,vec2(169.7, 5.8))); vec2 r; r.x = fract(512.0*j); j *= .125; r.y = fract(512.0*j);return r-0.5;}
 
@@ -40,36 +41,34 @@ float varazslat(vec2 position, float time){
 
 void main() {
 	vec2 uv = gl_FragCoord.xy / u_resolution.xy; 
-    uv = (uv-.5)*2.;
-   
-    vec3 vlsd = vec3(0,1,0);
-    vlsd = rotate3d(vlsd, vec3(1.,1.,0.), u_time);
-    vlsd = rotate3d(vlsd, vec3(1.,1.,0.), u_time);
-    vlsd = rotate3d(vlsd, vec3(1.,1.,0.), u_time);
-    
-    vec2 
-        v0 = .75 * sincos(.3457 * u_time + .3423) - simplex2d(uv * .917),
-        v1 = .75 * sincos(.7435 * u_time + .4565) - simplex2d(uv * .521), 
-        v2 = .75 * sincos(.5345 * u_time + .3434) - simplex2d(uv * .759);
-    
-    vec3 color = vec3(dot(uv-v0, vlsd.xy),dot(uv-v1, vlsd.yz),dot(uv-v2, vlsd.zx));
-    
-    color *= .2 + 2.5*vec3(
-    	(16.*simplex2d(uv+v0) + 8.*simplex2d((uv+v0)*2.) + 4.*simplex2d((uv+v0)*4.) + 2.*simplex2d((uv+v0)*8.) + simplex2d((v0+uv)*16.))/32.,
-        (16.*simplex2d(uv+v1) + 8.*simplex2d((uv+v1)*2.) + 4.*simplex2d((uv+v1)*4.) + 2.*simplex2d((uv+v1)*8.) + simplex2d((v1+uv)*16.))/32.,
-        (16.*simplex2d(uv+v2) + 8.*simplex2d((uv+v2)*2.) + 4.*simplex2d((uv+v2)*4.) + 2.*simplex2d((uv+v2)*8.) + simplex2d((v2+uv)*16.))/32.
-    );
-    
-    color = yiq2rgb(color);
-    
-    color *= 1.- .25* vec3(
-    	varazslat(uv *.25, u_time + .5),
-        varazslat(uv * .7, u_time + .2),
-        varazslat(uv * .4, u_time + .7)
-    );
-    
-    
-    color = vec3(pow(color.r, 0.45), pow(color.g, 0.45), pow(color.b, 0.45));
-    gl_FragColor = vec4(pow(color.r, 0.45), pow(color.g, 0.45), pow(color.b, 0.45), 1.0);
-    
+  uv = (uv-.5)*2.;
+ 
+  vec3 vlsd = vec3(0,1,0);
+  vlsd = rotate3d(vlsd, vec3(1.,1.,0.), u_time);
+  vlsd = rotate3d(vlsd, vec3(1.,1.,0.), u_time);
+  vlsd = rotate3d(vlsd, vec3(1.,1.,0.), u_time);
+  
+  vec2 
+    v0 = .75 * sincos(.3457 * u_time + .3423) - simplex2d(uv * .917),
+    v1 = .75 * sincos(.7435 * u_time + .4565) - simplex2d(uv * .521), 
+    v2 = .75 * sincos(.5345 * u_time + .3434) - simplex2d(uv * .759);
+  
+  vec3 color = vec3(dot(uv-v0, vlsd.xy),dot(uv-v1, vlsd.yz),dot(uv-v2, vlsd.zx));
+  
+  color *= .2 + 2.5*vec3(
+  	(16.*simplex2d(uv+v0) + 8.*simplex2d((uv+v0)*2.) + 4.*simplex2d((uv+v0)*4.) + 2.*simplex2d((uv+v0)*8.) + simplex2d((v0+uv)*16.))/32.,
+    (16.*simplex2d(uv+v1) + 8.*simplex2d((uv+v1)*2.) + 4.*simplex2d((uv+v1)*4.) + 2.*simplex2d((uv+v1)*8.) + simplex2d((v1+uv)*16.))/32.,
+    (16.*simplex2d(uv+v2) + 8.*simplex2d((uv+v2)*2.) + 4.*simplex2d((uv+v2)*4.) + 2.*simplex2d((uv+v2)*8.) + simplex2d((v2+uv)*16.))/32.
+  );
+  
+  color = yiq2rgb(color);
+  
+  color *= 1.- .25* vec3(
+  	varazslat(uv *.25, u_time + .5),
+    varazslat(uv * .7, u_time + .2),
+    varazslat(uv * .4, u_time + .7)
+  );
+  
+  color = vec3(pow(color.r, 0.45), pow(color.g, 0.45), pow(color.b, 0.45));
+  gl_FragColor = vec4(pow(color.r, 0.45), pow(color.g, 0.45), pow(color.b, 0.45), 1.0);
 }

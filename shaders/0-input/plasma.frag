@@ -1,6 +1,14 @@
+// Author: triggerHLM
+// Title: Plasma
+// Textures: 0
+
 // based on https://www.shadertoy.com/view/MdXGDH
 
-const float PI = 3.14159265;
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+#define PI 3.14159265
 
 uniform float u_time;
 

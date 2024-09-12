@@ -1,4 +1,6 @@
-//1-input
+// Author: Unknown
+// Title: Kaleidoscope
+// Textures: 1
 
 #ifdef GL_ES
 precision mediump float;
@@ -6,7 +8,6 @@ precision mediump float;
 
 #define TWO_PI 6.283185307795865
 
-varying vec2 v_texcoord;
 uniform sampler2D u_tex0;
 uniform vec2 u_resolution;
 uniform float u_time;
@@ -15,14 +16,13 @@ uniform float u_x1;
 uniform float u_x2;
 uniform float u_x3;
 
-
 void main(){
     int ksectors = 1 + int(u_x0*20.0);
     vec2 screenCenter = vec2(0.5, 0.5) ;
     vec2 kcenter = screenCenter + vec2(u_x2, u_x3);
     float kangleRad = u_time*u_x1;
     
-    vec2 pos = v_texcoord ;
+    vec2 pos =  gl_FragCoord.xy / u_resolution.xy;
     vec2 v = pos.xy - screenCenter;
     float r = length(v);
     float a = atan (v.y, v.x);
@@ -36,6 +36,3 @@ void main(){
     u += kcenter;
     gl_FragColor = texture2D(u_tex0, u);
 }
-
-
-
